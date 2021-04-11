@@ -6,12 +6,6 @@ from os import environ
 
 client = discord.Client()
 
-## Antes de correr el código preocuparse de estar dentro del ambiente virtual:
-## Correr "pipenv shell"
-## Correr "pipenv install"
-## Para iniciar el código: "pipenv run start"
-## ID PRODUCCION ODMwNjE5MzIyNTMwNTI5MzMw.YHJUhg.MtAZNWbtffwJ7cVIK-umT4tQtpk
-
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
@@ -65,6 +59,6 @@ async def on_message(message):
         await message.channel.send('Hola humano!')
 
 
-## Correr server con nuestra id que debería ser más privada pero bue
+## Correr server con nuestro token
 client.run(environ.get('TOKEN'))
 
