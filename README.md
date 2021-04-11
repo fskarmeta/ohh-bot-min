@@ -2,7 +2,7 @@
 
 ## Instrucciones.
 
-1) Clonar Projecto:
+1) Crear carpeta en tu pc, entrar a ese path y clonar projecto:
 `$ git clone <url> `
 
 2) Crear documento local ".env" e ingresar:
