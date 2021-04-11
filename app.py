@@ -39,6 +39,12 @@ async def on_message(message):
         if message.content.startswith('!p'):
             await message.channel.send('denuevo anda poniendo música este perkin ql del mati')
 
+        emoji = '\U0001f44e'
+        await message.add_reaction(emoji)
+
+        if (random.uniform(1, 100) < 5):
+            await message.channel.send('Mati son pocas veces las que digo algo así, pero la verdad es que te amo y por eso te molesto :hearts:')
+
     ## Definición de diccionario
     if message.content.startswith('$dic') and len(content) == 2:
         word = content[1]
@@ -50,6 +56,10 @@ async def on_message(message):
     
     ## Especial para el baf
     if str(message.author) == 'Báfian#7700':
+        
+        emoji = '\U0001f44d'
+        await message.add_reaction(emoji)
+        
         if (random.uniform(1, 100) > 90):
             await message.channel.send('me encanta como escribe el Báf')
 
