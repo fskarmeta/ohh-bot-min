@@ -1,1 +1,1 @@
-worker: pipenv run start
+worker: app/main.py
