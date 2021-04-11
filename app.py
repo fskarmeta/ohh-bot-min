@@ -29,7 +29,7 @@ async def on_message(message):
     ## Operaciones sobre el contenido
     content = message.content.split(" ")
     ## Procesamientos del cotenido
-    saludos = ("hola", "holi", "buenas", "hello", "qué tal")
+    saludos = ("hola", "holi", "buenas", "hello", "qué tal", "wena")
 
 
     ### Saludos
@@ -62,7 +62,7 @@ async def on_message(message):
 
     ## Saludo genérico que no se usará realmente creo lol
     if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
+        await message.channel.send('Hola humano!')
 
 
 ## Correr server con nuestra id que debería ser más privada pero bue
