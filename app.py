@@ -1,7 +1,8 @@
+import discord
 import requests
 import re
 import random
-import discord
+from os import environ
 
 client = discord.Client()
 
@@ -9,7 +10,7 @@ client = discord.Client()
 ## Correr "pipenv shell"
 ## Correr "pipenv install"
 ## Para iniciar el código: "pipenv run start"
-
+## ID PRODUCCION ODMwNjE5MzIyNTMwNTI5MzMw.YHJUhg.MtAZNWbtffwJ7cVIK-umT4tQtpk
 
 @client.event
 async def on_ready():
@@ -28,7 +29,7 @@ async def on_message(message):
     ## Operaciones sobre el contenido
     content = message.content.split(" ")
     ## Procesamientos del cotenido
-    saludos = ("hola", "holi", "buenas", "hello")
+    saludos = ("hola", "holi", "buenas", "hello", "qué tal")
 
 
     ### Saludos
@@ -65,5 +66,5 @@ async def on_message(message):
 
 
 ## Correr server con nuestra id que debería ser más privada pero bue
-client.run('ODMwNjE5MzIyNTMwNTI5MzMw.YHJUhg.MtAZNWbtffwJ7cVIK-umT4tQtpk')
+client.run(environ.get('TOKEN'))
 
