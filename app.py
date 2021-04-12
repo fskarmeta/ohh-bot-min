@@ -1,24 +1,32 @@
 import discord
+from discord.ext import commands
 import requests
 import re
 import random
 from os import environ
 
-client = discord.Client()
+# client = discord.Client()
+bot = commands.Bot(command_prefix= '#')
 
-@client.event
+
+@bot.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+    print('We have logged in as {0.user}'.format(bot))
 
-
+                
 
 ## Lectura de mensajes
-@client.event
+@bot.event
 async def on_message(message):
     
     ## Si mensaje es el mismo bot
-    if message.author == client.user:
+    if message.author == bot.user:
         return
+
+    ## pin pong   
+    if message.content == "ping":
+        await message.channel.send('pong')
+
 
     ## Operaciones sobre el contenido
     content = message.content.split(" ")
@@ -45,15 +53,6 @@ async def on_message(message):
         if (random.uniform(1, 100) < 5):
             await message.channel.send('Mati son pocas veces las que digo algo así, pero la verdad es que te amo y por eso te molesto :hearts:')
 
-    ## Definición de diccionario
-    if message.content.startswith('$dic') and len(content) == 2:
-        word = content[1]
-        data = requests.get('http://dle.rae.es/srv/search?w=' + word)
-        rawHTML = data.text[:1000]
-        description = re.findall(
-            r'name="description" content="(.*?)\">', rawHTML)[0]
-        await message.channel.send(description)
-    
     ## Especial para el baf
     if str(message.author) == 'Báfian#7700':
         
@@ -68,7 +67,27 @@ async def on_message(message):
     if message.content.startswith('$hello'):
         await message.channel.send('Hola humano!')
 
+    await bot.process_commands(message)
+
+
+
+# Comandos
+@bot.command()
+async def espejo(ctx,arg):
+    await ctx.send(arg)
+
+@bot.command()
+async def define(ctx, arg):
+    data = requests.get('http://dle.rae.es/srv/search?w=' + arg)
+    rawHTML = data.text[:1000]
+    description = re.findall(
+        r'name="description" content="(.*?)\">', rawHTML)[0]
+    await ctx.send(description)
+
+
+
+
 
 ## Correr server con nuestro token
-client.run(environ.get('TOKEN'))
+bot.run(environ.get('TOKEN'))
 
