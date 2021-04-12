@@ -6,7 +6,7 @@ import random
 from os import environ
 
 # client = discord.Client()
-bot = commands.Bot(command_prefix= '#')
+bot = commands.Bot(command_prefix='#')
 
 
 @bot.event
@@ -14,6 +14,13 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
 
                 
+# cuando urre entra al canal de truchaaa
+@bot.event
+async def on_voice_state_update(member, before, after):
+    if str(member) == "Trucho#6631" and str(after.channel.id) == "785246386408128605":
+        urre = ("esa truchazo que se va a jugar hoy", "qué rico tener aca truchita", "llego el master dic", "que onda urre su lol o codeo hoy?", "wena urre", "a no!")
+        mensaje = random.choice(urre)
+        await member.guild.system_channel.send(mensaje)
 
 ## Lectura de mensajes
 @bot.event
@@ -32,7 +39,6 @@ async def on_message(message):
     content = message.content.split(" ")
     ## Procesamientos del cotenido
     saludos = ("hola", "holi", "buenas", "hello", "qué tal", "wena")
-
 
     ### Saludos
     if any(saludo in content for saludo in saludos):
@@ -75,6 +81,7 @@ async def on_message(message):
 @bot.command()
 async def espejo(ctx,arg):
     await ctx.send(arg)
+
 
 @bot.command()
 async def define(ctx, arg):
