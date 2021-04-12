@@ -18,7 +18,7 @@ async def on_ready():
 @bot.event
 async def on_voice_state_update(member, before, after):
     if str(member) == "Trucho#6631" and str(after.channel.id) == "785246386408128605":
-        urre = ("esa truchazo que se va a jugar hoy", "qué rico tener aca truchita", "llego el master dic", "que onda urre su lol o codeo hoy?", "wena urre", "a no!")
+        urre = ("esa truchazo que se va a jugar hoy", "que rico tener aca truchita", "llego el master dic", "que onda urre su lol o codeo hoy?", "wena urre", "a no!")
         mensaje = random.choice(urre)
         await member.guild.system_channel.send(mensaje)
 
