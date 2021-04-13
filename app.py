@@ -94,8 +94,31 @@ async def define(ctx, arg):
         r'name="description" content="(.*?)\">', rawHTML)[0]
     await ctx.send(description)
 
-
-
+@bot.command()
+async def borrar(ctx, limit=5, member: discord.Member=None):
+    await ctx.message.delete()
+    msg = []
+    usuario = member
+    if not member:
+        usuario = bot.user
+    try:
+        limit = int(limit)
+    except:
+        return await ctx.send("Pasa un número como primer argumento y el nombre como segundo")
+    async for m in ctx.channel.history():
+        if not member:
+            if len(msg) == limit:
+                break
+            if m.author == bot.user:
+                msg.append(m)
+            await ctx.channel.delete_messages(msg)
+        else:
+            if len(msg) == limit:
+                break
+            if m.author == member:
+                    msg.append(m)
+            await ctx.channel.delete_messages(msg)
+    await ctx.send(f"Se han borrado los últimos {limit} mensajes de {usuario}", delete_after=3)
 
 
 ## Correr server con nuestro token
