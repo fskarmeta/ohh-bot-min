@@ -3,6 +3,7 @@ from discord.ext import commands
 import requests
 import re
 import random
+import urllib.parse
 from os import environ
 
 # client = discord.Client()
@@ -88,11 +89,16 @@ async def espejo(ctx,arg):
 
 @bot.command()
 async def define(ctx, arg):
-    data = requests.get('http://dle.rae.es/srv/search?w=' + arg)
+    search = urllib.parse.quote(arg)
+    data = requests.get('http://dle.rae.es/srv/search?w=' + search)
     rawHTML = data.text[:1000]
     description = re.findall(
         r'name="description" content="(.*?)\">', rawHTML)[0]
-    await ctx.send(description)
+
+    if description.split()[0] == "Versión":
+        await ctx.send("Esa palabra no exíste aprende a escribir aweonaoql")
+    else:
+        await ctx.send(description)
 
 @bot.command()
 async def borrar(ctx, limit=5, member: discord.Member=None):
