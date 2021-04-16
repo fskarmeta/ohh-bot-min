@@ -144,7 +144,7 @@ async def lol(ctx, arg):
         await ctx.send("a jugar un aramcillo cabres " + baf + " " + mati + " "  + urre + " " + blame + " " + hazer)
     
     if str(arg) == "elo":
-        role = discord.utils.get(ctx.message.guild.roles, name="ELOBOOSTER")
+        role = discord.utils.get(ctx.message.guild.roles, name="EloBooster")
         target = role.members
         for person in target:
             await ctx.send("a jugar lolcillo " +  person.mention)
