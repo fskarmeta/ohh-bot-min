@@ -6,8 +6,10 @@ import random
 import urllib.parse
 from os import environ
 
-# client = discord.Client()
-bot = commands.Bot(command_prefix='#')
+intents = discord.Intents.default()  # Allow the use of custom intents
+intents.members = True
+
+bot = commands.Bot(command_prefix='#', case_insensitive=True, intents=intents)
 
 
 @bot.event
@@ -37,6 +39,11 @@ async def on_message(message):
     ## pin pong   
     if message.content == "ping":
         await message.channel.send('pong')
+
+
+    #llamar medico
+    if message.content == "medic!":
+        await message.channel.send('@aweonaoql @Gallardo necesitamos un doctoorrrrrrrr :medical_symbol !!: ')
 
 
     ## Operaciones sobre el contenido
@@ -69,7 +76,7 @@ async def on_message(message):
         emoji = '\U0001f44d'
         await message.add_reaction(emoji)
         
-        if (random.uniform(1, 100) > 90):
+        if (random.uniform(1, 100) > 95):
             await message.channel.send('me encanta como escribe el Báf')
 
 
@@ -125,6 +132,24 @@ async def borrar(ctx, limit=5, member: discord.Member=None):
                     msg.append(m)
             await ctx.channel.delete_messages(msg)
     await ctx.send(f"Se han borrado los últimos {limit} mensajes de {usuario}", delete_after=3)
+
+@bot.command()
+async def lol(ctx, arg):
+    if str(arg) == "baf":
+        baf = '<@215721755380154369>'
+        mati = '<@308080160068861953>'
+        urre = '<@308080160068861953>'
+        blame = '<@317878217086074882>'
+        hazer = '<@438518298129334284>'
+        await ctx.send("a jugar un aramcillo cabres " + baf " " + mati + " "  + urre + " " + blame + " " + hazer)
+    
+    if str(arg) == "elo":
+        role = discord.utils.get(ctx.message.guild.roles, name="EloBustiado")
+        target = role.members
+        for person in target:
+            await ctx.send("a jugar lolcillo " +  person.mention)
+
+
 
 
 ## Correr server con nuestro token
