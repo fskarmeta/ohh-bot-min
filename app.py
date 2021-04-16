@@ -71,11 +71,11 @@ async def on_message(message):
         emoji = '\U0001f44e'
         await message.add_reaction(emoji)
         
-        if (random.uniform(1, 100) > 60):
+        if random.uniform(1, 100) > 60:
             heart = '\U002665'
             await message.add_reaction(heart)
 
-        if (random.uniform(1, 100) < 5):
+        if random.uniform(1, 100) < 5:
             await message.channel.send('Mati son pocas veces las que digo algo así, pero la verdad es que te amo y por eso te molesto :hearts:')
 
     ## Especial para el baf
