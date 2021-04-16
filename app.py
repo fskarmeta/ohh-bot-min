@@ -141,7 +141,7 @@ async def lol(ctx, arg):
         urre = '<@308080160068861953>'
         blame = '<@317878217086074882>'
         hazer = '<@438518298129334284>'
-        await ctx.send("a jugar un aramcillo cabres " + baf " " + mati + " "  + urre + " " + blame + " " + hazer)
+        await ctx.send("a jugar un aramcillo cabres " + baf + " " + mati + " "  + urre + " " + blame + " " + hazer)
     
     if str(arg) == "elo":
         role = discord.utils.get(ctx.message.guild.roles, name="EloBustiado")
