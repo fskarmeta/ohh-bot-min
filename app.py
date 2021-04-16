@@ -71,8 +71,8 @@ async def on_message(message):
         emoji = '\U0001f44e'
         await message.add_reaction(emoji)
         
-        if random.uniform(1, 100) > 60:
-            heart = '\U002665'
+        if random.uniform(1, 100) > 60:	
+            heart = '\U0001f496'
             await message.add_reaction(heart)
 
         if random.uniform(1, 100) < 5:
