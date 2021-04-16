@@ -137,7 +137,7 @@ async def borrar(ctx, limit=5, member: discord.Member=None):
 async def lol(ctx, arg):
     if str(arg) == "baf":
         baf = '<@215721755380154369>'
-        mati = '<@308080160068861953>'
+        mati = '<@289241705989799946>'
         urre = '<@308080160068861953>'
         blame = '<@317878217086074882>'
         hazer = '<@438518298129334284>'
