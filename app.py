@@ -12,10 +12,18 @@ intents.members = True
 bot = commands.Bot(command_prefix='#', case_insensitive=True, intents=intents)
 
 
+
 @bot.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
 
+
+# @bot.event
+# async def on_message(message: discord.Message):
+#     baf = bot.get_user(215721755380154369)
+#     if message.guild is None and not message.author.bot:
+#         await baf.send(message.content)
+#     await bot.process_commands(message)
                 
 # cuando urre entra al canal de truchaaa
 @bot.event
@@ -47,7 +55,7 @@ async def on_message(message):
 
     #llamar medico
     if message.content == "medic!":
-        await message.channel.send('@aweonaoql @Gallardo necesitamos un doctoorrrrrrrr :medical_symbol !!: ')
+        await message.channel.send('@aweonaoql @Gallardo necesitamos un doctoorrrrrrrr :medical_symbol: !!')
 
 
     ## Operaciones sobre el contenido
@@ -91,6 +99,12 @@ async def on_message(message):
     ## Saludo genérico que no se usará realmente creo lol
     if message.content.startswith('$hello'):
         await message.channel.send('Hola humano!')
+
+
+    baf = bot.get_user(215721755380154369)
+    if message.guild is None and not message.author.bot:
+        await baf.send(str(message.author) + " me dijo: " + message.content)
+
 
     await bot.process_commands(message)
 
@@ -143,22 +157,27 @@ async def borrar(ctx, limit=5, member: discord.Member=None):
 
 @bot.command()
 async def lol(ctx, arg):
+    baf = bot.get_user(215721755380154369)
+    mati = bot.get_user(289241705989799946)
+    urre = bot.get_user(308080160068861953)
+    blame = bot.get_user(317878217086074882)
+    hazer = bot.get_user(438518298129334284)
+
     if str(arg) == "baf":
-        baf = '<@215721755380154369>'
-        mati = '<@289241705989799946>'
-        urre = '<@308080160068861953>'
-        blame = '<@317878217086074882>'
-        hazer = '<@438518298129334284>'
-        await ctx.send("a jugar un aramcillo cabres " + baf + " " + mati + " "  + urre + " " + blame + " " + hazer)
+        await baf.send('el baf te esta invitando a jugar lol :d')
+        await mati.send('el baf te esta invitando a jugar lol :d')
+        await urre.send('el baf te esta invitando a jugar lol :d')
+        await blame.send('el baf te esta invitando a jugar lol :d')
+        await hazer.send('el baf te esta invitando a jugar lol :d')
     
     if str(arg) == "elo":
         role = discord.utils.get(ctx.message.guild.roles, name="EloBooster")
         target = role.members
         for person in target:
-            await ctx.send("a jugar lolcillo " +  person.mention)
+            await person.send('los cabres en el lolete te están invitando a jugar :d')
 
-
-
+    # if str(arg) == "test":
+    #     await baf.send('👀')
 
 ## Correr server con nuestro token
 bot.run(environ.get('TOKEN'))
