@@ -33,8 +33,8 @@ async def on_voice_state_update(member, before, after):
         urre = ("esa truchazo que se va a jugar hoy", "que rico tenerte aca truchita", "llego el master dic", "que onda urre su lol o codeo hoy?", "wena urre", "a no!")
         mensaje = random.choice(urre)
         await channel.send(mensaje)
-    if str(member) == "Báfian#7700" and str(after.channel.id) == "785246386408128605":
-        await channel.send("wena llego el baf")
+    # if str(member) == "Báfian#7700" and str(after.channel.id) == "785246386408128605":
+    #     await channel.send("wena llego el baf")
     if str(member) == "Chukao#9321" and str(after.channel.id) == "785246386408128605":
         mati = ("yupiii llegó el mati", "llegó el breaking bad", ":pill: llegó toda la química al canal :D", "que onda mati, sea of thieves, rocket, o lolcito?", "cómo estuvo el lab bro?", "wena rucio ql", "saquense uno que llegó el matiiiiii", "hi mister matias")
         mensaje = random.choice(mati)
@@ -55,7 +55,9 @@ async def on_message(message):
 
     #llamar medico
     if message.content == "medic!":
-        await message.channel.send('@aweonaoql @Gallardo necesitamos un doctoorrrrrrrr :medical_symbol: !!')
+        aweonao = bot.get_user(339136505723224066)
+        gallardo = bot.get_user(341719443258343434)
+        await message.channel.send(f"{aweonao.mention} {gallardo.mention} necesitamos un doctoorrrrrrrr :medical_symbol: !!")
 
 
     ## Operaciones sobre el contenido
