@@ -157,6 +157,22 @@ async def borrar(ctx, limit=5, member: discord.Member=None):
             await ctx.channel.delete_messages(msg)
     await ctx.send(f"Se han borrado los últimos {limit} mensajes de {usuario}", delete_after=3)
 
+
+@bot.command()
+async def tiempo(ctx):
+    headers_dict = {'Accept': '*/*', 'User-Agent': 'curl/7.43.0'}
+    data = requests.get('http://wttr.in/$santiago.chile?m', headers=headers_dict)
+
+    def strip_ansi_codes(s):
+        return re.sub('\033\\[([0-9]+)(;[0-9]+)*m', '', s)
+
+    with open("weather.txt", "w", encoding="utf-8") as file:
+        file.write(strip_ansi_codes(data.text))
+
+    with open("weather.txt", "rb") as file:
+        await ctx.send("El tiempo en santiago:", file=discord.File(file, "tiempo.txt"))
+
+
 @bot.command()
 async def lol(ctx, arg):
     baf = bot.get_user(215721755380154369)
