@@ -197,6 +197,12 @@ async def lol(ctx, arg):
     # if str(arg) == "test":
     #     await baf.send('👀')
 
+@bot.command()
+async def mati(ctx, arg):
+    if str(arg) == 'test':
+        await ctx.send('oaloalaoalaoalao')
+
+
 ## Correr server con nuestro token
 bot.run(environ.get('TOKEN'))
 
