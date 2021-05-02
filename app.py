@@ -258,13 +258,14 @@ async def play(ctx, url: str):
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
-    for file in os.listdir('./'):
-        if file.endswith('.mp3'):
+    for file in os.listdir("./"):
+        if file.endswith("".mp3"):
             print("Encontro file .mp3")
             os.rename(file, 'song.mp3')
-        voice.play(discord.FFmpegPCMAudio("song.mp3"))
         else:
             print("no hay canción .mp3 en el directorio")
+        voice.play(discord.FFmpegPCMAudio("song.mp3"))
+
 
 @bot.command()
 async def pause(ctx):
