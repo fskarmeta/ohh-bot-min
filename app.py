@@ -78,7 +78,7 @@ async def on_message(message):
         if str(message.author) == 'Trucho#6631':
             await message.channel.send('esa truchazo usted sabe, py love for you :hearts:')
         else:
-            await message.channel.send('buenas buenas!')
+            await message.channel.send('buenas buenas! :d')
 
 
     ## Huevear al mati
