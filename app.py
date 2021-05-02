@@ -263,8 +263,7 @@ async def play(ctx, url: str):
         if file.endswith(".mp3"):
             print("Encontro file .mp3")
             os.rename(file, "song.mp3")
-        else:
-            print("no hay canción .mp3 en el directorio")
+
     voice.play(discord.FFmpegPCMAudio("song.mp3"))
 
 
