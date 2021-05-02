@@ -242,10 +242,9 @@ async def play(ctx, url: str):
         return
 
     voiceChannel = ctx.message.author.voice.channel
-    await voiceChannel.connect()
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    # if voice is None or not voice.is_connected():
-    
+    if voice is None or not voice.is_connected():
+        await voiceChannel.connect()
 
     ydl_opts = {
         'format': 'bestaudio/best',
@@ -260,6 +259,7 @@ async def play(ctx, url: str):
         ydl.download([url])
     for file in os.listdir('./'):
         if file.endswith('.mp3'):
+            print("Encontro file .mp3")
             os.rename(file, 'song.mp3')
         voice.play(discord.FFmpegPCMAudio("song.mp3"))
 
