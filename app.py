@@ -4,17 +4,25 @@ import requests
 import re
 import random
 import urllib.parse
+# import logging
+import youtube_dl
+import os
 from os import environ
 
 intents = discord.Intents.default()  # Allow the use of custom intents
 intents.members = True
 
 bot = commands.Bot(command_prefix='#', case_insensitive=True, intents=intents)
-
+# logger = logging.getLogger('discord')
+# logger.setLevel(logging.DEBUG)
+# handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+# handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+# logger.addHandler(handler)
 
 
 @bot.event
 async def on_ready():
+    print(discord.version_info)
     print('We have logged in as {0.user}'.format(bot))
 
 
@@ -221,6 +229,61 @@ async def leave(ctx):
     else:
         await ctx.send("No estoy en un canal de voz")
         
+
+
+@bot.command()
+async def play(ctx, url: str):
+    song_there = os.path.isfile("song.mp3")
+    try:
+        if song_there:
+            os.remove("song.mp3")
+    except PermissionError:
+        await ctx.send("Espera que termine la canción o usa el commando #stop")
+        return
+
+    voiceChannel = ctx.message.author.voice.channel
+    await voiceChannel.connect()
+    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    # if voice is None or not voice.is_connected():
+    
+
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],  
+    }
+
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([url])
+    for file in os.listdir('./'):
+        if file.endswith('.mp3'):
+            os.rename(file, 'song.mp3')
+        voice.play(discord.FFmpegPCMAudio("song.mp3"))
+
+@bot.command()
+async def pause(ctx):
+    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    if voice.is_playing():
+        voice.pause()
+    else:
+        await ctx.send('No hay audio sonando.')
+
+@bot.command()
+async def resume(ctx):
+    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    if voice.is_paused():
+        voice.resume()
+    else:
+        await ctx.send('EL audio no esta en pausa.')
+
+@bot.command()
+async def stop(ctx):
+    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    voice.stop()
+
 #intento de troleo al lucho
 # @bot.event
 # async def on_voice_state_update(member, before, after):
