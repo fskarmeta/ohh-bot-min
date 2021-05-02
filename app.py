@@ -26,19 +26,19 @@ async def on_ready():
 #     await bot.process_commands(message)
                 
 # cuando urre entra al canal de truchaaa
-@bot.event
-async def on_voice_state_update(member, before, after):
-    channel = bot.get_channel(399419563625676831)
-    if str(member) == "Trucho#6631" and str(after.channel.id) == "785246386408128605":
-        urre = ("esa truchazo que se va a jugar hoy", "que rico tenerte aca truchita", "llego el master dic", "que onda urre su lol o codeo hoy?", "wena urre", "a no!")
-        mensaje = random.choice(urre)
-        await channel.send(mensaje)
-    # if str(member) == "Báfian#7700" and str(after.channel.id) == "785246386408128605":
-    #     await channel.send("wena llego el baf")
-    if str(member) == "Chukao#9321" and str(after.channel.id) == "785246386408128605":
-        mati = ("yupiii llegó el mati", "llegó el breaking bad", ":pill: llegó toda la química al canal :D", "que onda mati, sea of thieves, rocket, o lolcito?", "cómo estuvo el lab bro?", "wena rucio ql", "saquense uno que llegó el matiiiiii", "hi mister matias")
-        mensaje = random.choice(mati)
-        await channel.send(mensaje)
+# @bot.event
+# async def on_voice_state_update(member, before, after):
+#     channel = bot.get_channel(399419563625676831)
+#     if str(member) == "Trucho#6631" and str(after.channel.id) == "785246386408128605":
+#         urre = ("esa truchazo que se va a jugar hoy", "que rico tenerte aca truchita", "llego el master dic", "que onda urre su lol o codeo hoy?", "wena urre", "a no!")
+#         mensaje = random.choice(urre)
+#         await channel.send(mensaje)
+#     # if str(member) == "Báfian#7700" and str(after.channel.id) == "785246386408128605":
+#     #     await channel.send("wena llego el baf")
+#     if str(member) == "Chukao#9321" and str(after.channel.id) == "785246386408128605":
+#         mati = ("yupiii llegó el mati", "llegó el breaking bad", ":pill: llegó toda la química al canal :D", "que onda mati, sea of thieves, rocket, o lolcito?", "cómo estuvo el lab bro?", "wena rucio ql", "saquense uno que llegó el matiiiiii", "hi mister matias")
+#         mensaje = random.choice(mati)
+#         await channel.send(mensaje)
 
 ## Lectura de mensajes
 @bot.event
@@ -200,9 +200,38 @@ async def lol(ctx, arg):
 @bot.command()
 async def mati(ctx, arg):
     if str(arg) == 'test':
-        await ctx.send('oaloalaoalaoalao')
+        await ctx.send('Primer codigo del mati')
+
+
+
+#Para que el bot pueda entrar a un canal de voz usando el comando #join
+@bot.command(pass_context = True)
+async def join(ctx):
+    if (ctx.author.voice):
+        channel = ctx.message.author.voice.channel
+        await channel.connect()
+    else:
+        await ctx.send("No estas en un canal de voz, debes estar en un canal de voz para usar este comando")
+
+#Para que el bot pueda salir del canal de voz suando el comando #leave
+@bot.command(pass_context = True)
+async def leave(ctx):
+    if (ctx.voice_client):
+        await ctx.guild.voice_client.disconnect()
+    else:
+        await ctx.send("No estoy en un canal de voz")
+        
+#intento de troleo al lucho
+# @bot.event
+# async def on_voice_state_update(member, before, after):
+#     channel_general = bot.get_channel(830927038101454881)
+#     channel_voice = bot.get_channel(830927038101454882)
+#     mati = bot.get_user(289241705989799946)
+#     if member == mati and after.channel.id == 830927038101454882:
+#         await channel_voice.connect()
+#         mensaje = "!p https://www.youtube.com/watch?v=M9ipv2Gvsrw&ab_channel=SebaMarquez%3AD"
+#         await channel_general.send(mensaje)
 
 
 ## Correr server con nuestro token
 bot.run(environ.get('TOKEN'))
-
