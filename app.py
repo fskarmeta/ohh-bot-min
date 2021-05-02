@@ -65,7 +65,7 @@ async def on_message(message):
     if message.content == "medic!":
         aweonao = bot.get_user(339136505723224066)
         gallardo = bot.get_user(341719443258343434)
-        await message.channel.send(f"{aweonao.mention} {gallardo.mention} necesitamos un doctoorrrrrrrr :medical_symbol: !!")
+        await message.channel.send(f"{aweonao.mention} {gallardo.mention} necesitamos un doctoorrrrrrrrr :medical_symbol: !!")
 
 
     ## Operaciones sobre el contenido
