@@ -242,9 +242,10 @@ async def play(ctx, url: str):
         return
 
     voiceChannel = ctx.message.author.voice.channel
-    voice = discord.utils.get(ctx.guild.voice_channels, name="Medicina")
-    if voice is None or not voice.is_connected():
-        await voiceChannel.connect()
+    await voiceChannel.connect()
+    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    # if voice is None or not voice.is_connected():
+    
 
     ydl_opts = {
         'format': 'bestaudio/best',
