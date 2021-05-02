@@ -258,7 +258,7 @@ async def play(ctx, url: str):
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
-    for file in os.listdir("./"):
+    for file in os.listdir("."):
         if file.endswith(".mp3"):
             print("Encontro file .mp3")
             os.rename(file, 'song.mp3')
