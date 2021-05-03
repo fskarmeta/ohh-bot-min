@@ -8,6 +8,7 @@ requests = "*"
 scripts = "*"
 "discord.py" = {extras = ["voice"], version = "*"}
 youtube-dl = "*"
+pyttsx3 = "*"
 
 [dev-packages]
 

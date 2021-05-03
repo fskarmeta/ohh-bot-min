@@ -7,6 +7,7 @@ import urllib.parse
 # import logging
 import youtube_dl
 import os
+import pyttsx3
 from os import environ
 
 intents = discord.Intents.default()  # Allow the use of custom intents
@@ -19,6 +20,9 @@ bot = commands.Bot(command_prefix='#', case_insensitive=True, intents=intents)
 # handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 # logger.addHandler(handler)
 
+engine = pyttsx3.init()
+engine.save_to_file('Yo yo yo mr wait' , 'lucho.mp3')
+engine.runAndWait()
 
 @bot.event
 async def on_ready():
@@ -287,6 +291,11 @@ async def resume(ctx):
 async def stop(ctx):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
     voice.stop()
+
+@bot.command()
+async def lucho(ctx):
+    voice.play(discord.FFmpegPCMAudio("lucho.mp3"))
+
 
 #intento de troleo al lucho
 # @bot.event
