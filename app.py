@@ -292,8 +292,8 @@ async def stop(ctx):
 
 @bot.command()
 async def lucho(ctx):
-    engine = pyttsx3.init()
-    engine.save_to_file('Yo yo yo mister wait' , 'lucho.mp3')
+    # engine = pyttsx3.init()
+    # engine.save_to_file('Yo yo yo mister wait' , 'lucho.mp3')
     # engine.runAndWait()
     voice.play(discord.FFmpegPCMAudio("lucho.mp3"))
 
