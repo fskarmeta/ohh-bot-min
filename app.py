@@ -10,6 +10,7 @@ import os
 import pyttsx3
 from os import environ
 
+engine = pyttsx3.init()
 intents = discord.Intents.default()  # Allow the use of custom intents
 intents.members = True
 
@@ -292,7 +293,6 @@ async def stop(ctx):
 
 @bot.command()
 async def lucho(ctx):
-    engine = pyttsx3.init()
     engine.save_to_file('Yo yo yo mister wait' , 'lucho.mp3')
     engine.runAndWait()
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
