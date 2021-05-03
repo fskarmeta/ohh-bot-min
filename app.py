@@ -292,9 +292,10 @@ async def stop(ctx):
 
 @bot.command()
 async def lucho(ctx):
-    # engine = pyttsx3.init()
-    # engine.save_to_file('Yo yo yo mister wait' , 'lucho.mp3')
-    # engine.runAndWait()
+    engine = pyttsx3.init()
+    engine.save_to_file('Yo yo yo mister wait' , 'lucho.mp3')
+    engine.runAndWait()
+    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
     voice.play(discord.FFmpegPCMAudio("lucho.mp3"))
 
 
