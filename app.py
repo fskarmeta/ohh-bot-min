@@ -293,9 +293,9 @@ async def stop(ctx):
 @bot.command()
 async def lucho(ctx):
     engine = pyttsx3.init()
-    engine.save_to_file('Yo yo yo mister wait' , 'lucho.mp3')
-    engine.runAndWait()
-    voice.play(discord.FFmpegPCMAudio("lucho.mp3"))
+    engine.save_to_file('Yo yo yo mister wait' , 'lucho1.mp3')
+    # engine.runAndWait()
+    voice.play(discord.FFmpegPCMAudio("lucho1.mp3"))
 
 
 #intento de troleo al lucho
