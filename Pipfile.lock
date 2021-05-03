@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "891188e090d8b6d5b958cefdf111ab0fa87e910a8427525d69e55e7a4b74e4d9"
+            "sha256": "27d7e18b7cccb3732580fc1fdcf24d6eb6e8475a53ae1f6cbdc6e4b0d651076c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -144,11 +144,11 @@
                 "voice"
             ],
             "hashes": [
-                "sha256:399b80d576a63fa901300e80080568e1d9cd9c21260ca622fd7145c0009278fa",
-                "sha256:82bc5e6325ab7557db9c466f638c98e18be03c330f56ad9bf4c18bdcf19faf55"
+                "sha256:114e76cd27362fb919abf7f001a2dbdc77c9a67cff74ed6a89aecd6582ee298e",
+                "sha256:f179db299c949a8cf0a12c1b1b94d0da9a18e088857154d93ae5ab1d807ec61d"
             ],
             "index": "pypi",
-            "version": "==1.7.1"
+            "version": "==1.7.2"
         },
         "idna": {
             "hashes": [
@@ -237,7 +237,7 @@
                 "sha256:67adf399debc1d5d14dffc1ab5acacb800da569754fafdc576b2a039485aa775",
                 "sha256:71be40c1fbd28594214ecaecb58e7aa8b708eabfa0125c8a109ebd51edbd776a"
             ],
-            "index": "pypi",
+            "markers": "platform_system == 'Windows'",
             "version": "==223"
         },
         "pyttsx3": {
