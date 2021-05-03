@@ -20,9 +20,7 @@ bot = commands.Bot(command_prefix='#', case_insensitive=True, intents=intents)
 # handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 # logger.addHandler(handler)
 
-engine = pyttsx3.init()
-engine.save_to_file('Yo yo yo mr wait' , 'lucho.mp3')
-engine.runAndWait()
+
 
 @bot.event
 async def on_ready():
@@ -294,6 +292,9 @@ async def stop(ctx):
 
 @bot.command()
 async def lucho(ctx):
+    engine = pyttsx3.init()
+    engine.save_to_file('Yo yo yo mister wait' , 'lucho.mp3')
+    engine.runAndWait()
     voice.play(discord.FFmpegPCMAudio("lucho.mp3"))
 
 

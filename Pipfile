@@ -9,6 +9,7 @@ scripts = "*"
 "discord.py" = {extras = ["voice"], version = "*"}
 youtube-dl = "*"
 pyttsx3 = "*"
+pypiwin32 = "*"
 
 [dev-packages]
 
