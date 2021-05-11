@@ -6,6 +6,8 @@ import random
 import urllib.parse
 import youtube_dl
 import os
+import pymongo
+from pymongo import MongoClient
 from os import environ
 
 intents = discord.Intents.default()  # Allow the use of custom intents
@@ -47,7 +49,25 @@ async def on_voice_state_update(member, before, after):
 ## Lectura de mensajes
 @bot.event
 async def on_message(message):
-    
+    mentioned = message.mentions
+    if mentioned:
+        if ("++" in message.content):
+            client = MongoClient('mongodb+srv://fabian:x0wuiNn6Lfdke0kk@cluster0.wppvi.mongodb.net/discord?retryWrites=true&w=majority', ssl=True)
+            db = client['discord']
+            collection = db['users']
+            for member in mentioned:
+                if str(message.author.id) != str(member.id):
+                    exists = collection.find_one({"_id": str(member.id)})
+                    if exists:
+                        collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1} })     
+                    else:    
+                        newMember = {"_id": str(member.id), "name": str(member.name), "points": 1}
+                        collection.insert_one(newMember)
+
+                    user = collection.find_one({"_id": str(member.id)})
+                    await message.channel.send(f"{str(member.name)} tiene {user['points']} puntos ahora!")
+
+            client.close()
     ## Si mensaje es el mismo bot
     if message.author == bot.user:
         return
