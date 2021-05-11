@@ -54,7 +54,7 @@ async def on_message(message):
         if ("++" in message.content):
             client = MongoClient('mongodb+srv://fabian:x0wuiNn6Lfdke0kk@cluster0.wppvi.mongodb.net/discord?retryWrites=true&w=majority', ssl=True)
             db = client['discord']
-            collection = db['users-test']
+            collection = db['users']
             for member in mentioned:
                 if str(message.author.id) != str(member.id):
                     collection.update_one({"_id": str(member.id), "name": str(member.name)}, {"$inc": { "points" : 1} }, upsert=True)     
