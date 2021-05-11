@@ -60,6 +60,8 @@ async def on_message(message):
                     collection.update_one({"_id": str(member.id), "name": str(member.name)}, {"$inc": { "points" : 1} }, upsert=True)     
                     user = collection.find_one({"_id": str(member.id)})
                     await message.channel.send(f"{str(member.name)} tiene {user['points']} puntos ahora!")
+                else:
+                    await message.channel.send("el wn barsa")
 
             client.close()
     ## Si mensaje es el mismo bot
