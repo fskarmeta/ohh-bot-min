@@ -4,21 +4,15 @@ import requests
 import re
 import random
 import urllib.parse
-# import logging
 import youtube_dl
 import os
-import pyttsx3
 from os import environ
 
 intents = discord.Intents.default()  # Allow the use of custom intents
 intents.members = True
 
 bot = commands.Bot(command_prefix='#', case_insensitive=True, intents=intents)
-# logger = logging.getLogger('discord')
-# logger.setLevel(logging.DEBUG)
-# handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-# handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-# logger.addHandler(handler)
+
 
 
 
@@ -28,27 +22,27 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
 
 
-# @bot.event
-# async def on_message(message: discord.Message):
-#     baf = bot.get_user(215721755380154369)
-#     if message.guild is None and not message.author.bot:
-#         await baf.send(message.content)
-#     await bot.process_commands(message)
+@bot.event
+async def on_message(message: discord.Message):
+    baf = bot.get_user(215721755380154369)
+    if message.guild is None and not message.author.bot:
+        await baf.send(message.content)
+    await bot.process_commands(message)
                 
-# cuando urre entra al canal de truchaaa
-# @bot.event
-# async def on_voice_state_update(member, before, after):
-#     channel = bot.get_channel(399419563625676831)
-#     if str(member) == "Trucho#6631" and str(after.channel.id) == "785246386408128605":
-#         urre = ("esa truchazo que se va a jugar hoy", "que rico tenerte aca truchita", "llego el master dic", "que onda urre su lol o codeo hoy?", "wena urre", "a no!")
-#         mensaje = random.choice(urre)
-#         await channel.send(mensaje)
-#     # if str(member) == "Báfian#7700" and str(after.channel.id) == "785246386408128605":
-#     #     await channel.send("wena llego el baf")
-#     if str(member) == "Chukao#9321" and str(after.channel.id) == "785246386408128605":
-#         mati = ("yupiii llegó el mati", "llegó el breaking bad", ":pill: llegó toda la química al canal :D", "que onda mati, sea of thieves, rocket, o lolcito?", "cómo estuvo el lab bro?", "wena rucio ql", "saquense uno que llegó el matiiiiii", "hi mister matias")
-#         mensaje = random.choice(mati)
-#         await channel.send(mensaje)
+#cuando urre entra al canal de truchaaa
+@bot.event
+async def on_voice_state_update(member, before, after):
+    channel = bot.get_channel(399419563625676831)
+    if str(member) == "Trucho#6631" and str(after.channel.id) == "785246386408128605":
+        urre = ("esa truchazo que se va a jugar hoy", "que rico tenerte aca truchita", "llego el master dic", "que onda urre su lol o codeo hoy?", "wena urre", "a no!")
+        mensaje = random.choice(urre)
+        await channel.send(mensaje)
+    # if str(member) == "Báfian#7700" and str(after.channel.id) == "785246386408128605":
+    #     await channel.send("wena llego el baf")
+    if str(member) == "Chukao#9321" and str(after.channel.id) == "785246386408128605":
+        mati = ("yupiii llegó el mati", "llegó el breaking bad", ":pill: llegó toda la química al canal :D", "que onda mati, sea of thieves, rocket, o lolcito?", "cómo estuvo el lab bro?", "wena rucio ql", "saquense uno que llegó el matiiiiii", "hi mister matias")
+        mensaje = random.choice(mati)
+        await channel.send(mensaje)
 
 ## Lectura de mensajes
 @bot.event
@@ -298,17 +292,6 @@ async def lucho(ctx):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
     voice.play(discord.FFmpegPCMAudio("lucho.mp3"))
 
-
-#intento de troleo al lucho
-# @bot.event
-# async def on_voice_state_update(member, before, after):
-#     channel_general = bot.get_channel(830927038101454881)
-#     channel_voice = bot.get_channel(830927038101454882)
-#     mati = bot.get_user(289241705989799946)
-#     if member == mati and after.channel.id == 830927038101454882:
-#         await channel_voice.connect()
-#         mensaje = "!p https://www.youtube.com/watch?v=M9ipv2Gvsrw&ab_channel=SebaMarquez%3AD"
-#         await channel_general.send(mensaje)
 
 
 ## Correr server con nuestro token
