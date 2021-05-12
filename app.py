@@ -63,7 +63,17 @@ async def on_message(message):
                 else:
                     await message.channel.send("el wn barsa")
 
-            client.close()
+    if message.content == "#puntos":
+            client = MongoClient(db_connection_string, ssl=True)
+            db = client['discord']
+            collection = db['users']
+            user = collection.find_one({"_id": str(member.id)})
+            if (user):
+                await message.channel.send(f"{str(member.name)} tiene {user['points']} puntos!")
+            else:
+                await message.channel.send(f"No haber registro para {member.name}")
+
+    client.close()
     ## Si mensaje es el mismo bot
     if message.author == bot.user:
         return
