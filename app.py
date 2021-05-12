@@ -15,7 +15,7 @@ intents.members = True
 
 bot = commands.Bot(command_prefix='#', case_insensitive=True, intents=intents)
 
-
+db_connection_string = f"mongodb+srv://{environ.get('DB_USER')}:{environ.get('DB_PASS')}@{environ.get('DB_CLUSTER')}.wppvi.mongodb.net/{environ.get('DB_DB')}?retryWrites=true&w=majority"
 
 
 @bot.event
@@ -52,7 +52,7 @@ async def on_message(message):
     mentioned = message.mentions
     if mentioned:
         if ("++" in message.content):
-            client = MongoClient('mongodb+srv://fabian:x0wuiNn6Lfdke0kk@cluster0.wppvi.mongodb.net/discord?retryWrites=true&w=majority', ssl=True)
+            client = MongoClient(db_connection_string, ssl=True)
             db = client['discord']
             collection = db['users']
             for member in mentioned:
