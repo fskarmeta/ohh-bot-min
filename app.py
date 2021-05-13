@@ -294,8 +294,7 @@ async def mati(ctx, arg):
         await ctx.send('Primer codigo del mati')
 
 @bot.command()
-async def premios(ctx, arg):
-    if str(arg) == 'test':
+async def premios(ctx):
         await ctx.send(f'Premio n°1: Al alcanzar 100 puntos te compraré una manito de wii o un six pack de kunstmann, a tu elijes. :D Esto es 100% real! ')
 
 
