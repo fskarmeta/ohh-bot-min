@@ -9,6 +9,7 @@ import os
 import time
 from helpers import get_or_create_user
 import datetime
+import pymongo
 from pymongo import MongoClient
 from os import environ
 
@@ -269,6 +270,25 @@ async def mati(ctx, arg):
 async def premios(ctx):
         await ctx.send(f'Premio n°1: Al alcanzar 100 puntos te compraré una manito de wii o un six pack de kunstmann, tu elijes. :D Esto es 100% real! ')
 
+@bot.command()
+async def ranking(ctx):
+        l = ["Primer lugar", "Segundo Lugar", "Tercer Lugar", "Cuarto Lugar", "Quinto Lugar"]
+        client = MongoClient(db_connection_string, ssl=True)
+        db = client['discord']
+        collection = db['users']
+        docs = collection.find()[:5].sort('points', pymongo.DESCENDING)
+        i = 0
+        for doc in docs:
+            user = bot.get_user(int(doc['_id']))
+            await ctx.send(l[i] + ": " + str(user.name) + " con " + str(doc['points']) + " puntos.")
+            i+=1
+        client.close()
+        
+
+# @bot.command()
+# async def printmember(ctx, arg):
+#         user = bot.get_user(int(arg))
+#         print(user)
 
 #Para que el bot pueda entrar a un canal de voz usando el comando #join
 @bot.command(pass_context = True)
