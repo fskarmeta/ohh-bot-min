@@ -69,7 +69,8 @@ async def on_message(message):
                             dif = current_time - last_time
                             if dif < waiting_time:
                                 client.close()
-                                return await message.channel.send(f"Faltan {str(datetime.timedelta(seconds=dif))} minutos para que puedas dar otro punto")
+                                value = datetime.datetime.fromtimestamp(dif)
+                                return await message.channel.send(f"Falta {value.strftime('%Y-%m-%d %H:%M:%S')} para que puedas dar otro punto a {str(member.name)}")
                             else:
                                 collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1} }, upsert=True)
                                 client.close()
