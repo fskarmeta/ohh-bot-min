@@ -69,21 +69,27 @@ async def on_message(message):
                             current_time = time.time()
                             dif = current_time - last_time
                             if dif < waiting_time:
+
                                 value = datetime.datetime.fromtimestamp(dif)
-                                await message.channel.send(f"Falta {value.strftime('%H:%M:%S')} para que puedas dar otro punto a {str(member.name)}")
+                                return await message.channel.send(f"Falta {value.strftime('%H:%M:%S')} para que puedas dar otro punto a {str(member.name)}")
                             else:
                                 collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1} }, upsert=True)
-                                await message.channel.send(f"{str(member.name)} tiene {user['points'] + 1} puntos ahora!")
+
+                                return await message.channel.send(f"{str(member.name)} tiene {user['points'] + 1} puntos ahora!")
                         else:
                             collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1} }, upsert=True)
                             await message.channel.send(f"{str(member.name)} tiene {user['points'] + 1} puntos ahora!")
                             currentUser['points_given'][str(member.id)] = time.time()
                             collection.update_one({"_id": str(message.author.id)}, { "$set": { 'points_given': currentUser['points_given'] } }, upsert=True)
+
+                            return
                     else:
                         collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1}, "$set": { 'points_given': {} } }, upsert=True)
                         await message.channel.send(f"{str(member.name)} tiene su primer punto :d!")
                         currentUser['points_given'][str(member.id)] = time.time()
                         collection.update_one({"_id": str(message.author.id)}, { "$set": { 'points_given': currentUser['points_given'] } }, upsert=True)
+
+                        return
                 else:
                     await message.channel.send("el wn barsa")
             client.close()
