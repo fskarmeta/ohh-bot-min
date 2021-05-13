@@ -8,7 +8,7 @@ import youtube_dl
 import os
 import time
 from helpers import get_or_create_user
-import pymongo
+import datetime
 from pymongo import MongoClient
 from os import environ
 
@@ -69,7 +69,7 @@ async def on_message(message):
                             dif = current_time - last_time
                             if dif < waiting_time:
                                 client.close()
-                                return await message.channel.send(f"Faltan {dif//60} minutos para que puedas dar otro punto")
+                                return await message.channel.send(f"Faltan {str(datetime.timedelta(seconds=dif))} minutos para que puedas dar otro punto")
                             else:
                                 collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1} }, upsert=True)
                                 client.close()
