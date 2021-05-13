@@ -53,22 +53,18 @@ async def on_voice_state_update(member, before, after):
 async def on_message(message):
     mentioned = message.mentions
     if mentioned:
-        print("user mentioned", mentioned)
         if ("++" in message.content):
             waiting_time = 2700
             client = MongoClient(db_connection_string, ssl=True)
             db = client['discord']
-            collection = db['users-test2']
+            collection = db['users']
             currentUser = get_or_create_user(collection, str(message.author.id))
-            print('usuario dando puntos', currentUser)
             for member in mentioned:
                 if str(message.author.id) != str(member.id):
                     user = collection.find_one({"_id": str(member.id)})
                     if user:
-                        print('se encontro miembro :', user)
                         last_time = currentUser['points_given'].get(str(member.id), 0)
                         if last_time:
-                            print("hubo un registro a ultima vez")
                             current_time = time.time()
                             dif = current_time - last_time
                             if dif < waiting_time:
@@ -79,7 +75,6 @@ async def on_message(message):
                                 client.close()
                                 return await message.channel.send(f"{str(member.name)} tiene {user['points'] + 1} puntos ahora!")
                         else:
-                            print("no hubo last time")
                             collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1} }, upsert=True)
                             await message.channel.send(f"{str(member.name)} tiene {user['points'] + 1} puntos ahora!")
                             currentUser['points_given'][str(member.id)] = time.time()
@@ -87,7 +82,6 @@ async def on_message(message):
                             client.close()
                             return
                     else:
-                        print("no habia miembro")
                         collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1}, "$set": { 'points_given': {} } }, upsert=True)
                         await message.channel.send(f"{str(member.name)} tiene su primer punto :d!")
                         currentUser['points_given'][str(member.id)] = time.time()
@@ -97,30 +91,7 @@ async def on_message(message):
                 else:
                     await message.channel.send("el wn barsa")
             client.close()
-                
 
-
-                # if str(message.author.id) != str(member.id):
-                #     currentUser = collection.find_one({"_id": str(message.author.id)})
-                #     if not currentUser:
-                #          collection.update_one({"_id": str(message.author.id)}, {"$set": { 'last_point': time.time(), "points": 0 } }, upsert=True)
-                    
-                    
-                #     user = collection.find_one({"_id": str(member.id)})
-
-                #     if (user):
-                #         actual_time = time.time()
-                #         if (actual_time - user['last_point'] > 3600):
-                #             collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1}, "$set": { 'last_point': time.time() } }, upsert=True)     
-                #             await message.channel.send(f"{str(member.name)} tiene {user['points'] + 1} puntos ahora!")
-                #         else:
-                #             await message.channel.send(f"Faltan {(actual_time - user['last_point'] )//60} minutos para que puedas dar otro punto")
-                #     else:
-                #         collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1}, "$set": { 'last_point': time.time() } }, upsert=True)     
-                #         await message.channel.send(f"{str(member.name)} tiene su primer punto :d!")
-                # else:
-                #     await message.channel.send("el wn barsa")
-            print("Llegó hasta el final");
             
 
     if message.content == "puntos":
@@ -295,7 +266,7 @@ async def mati(ctx, arg):
 
 @bot.command()
 async def premios(ctx):
-        await ctx.send(f'Premio n°1: Al alcanzar 100 puntos te compraré una manito de wii o un six pack de kunstmann, a tu elijes. :D Esto es 100% real! ')
+        await ctx.send(f'Premio n°1: Al alcanzar 100 puntos te compraré una manito de wii o un six pack de kunstmann, tu elijes. :D Esto es 100% real! ')
 
 
 #Para que el bot pueda entrar a un canal de voz usando el comando #join
