@@ -66,30 +66,28 @@ async def on_message(message):
                     if user:
                         last_time = currentUser['points_given'].get(str(member.id), 0)
                         if last_time:
+                            print("Hubo ultima vez")
                             current_time = time.time()
                             dif = current_time - last_time
                             if dif < waiting_time:
-                                client.close()
+                                print("no ha pasado suficiente tiempo")
                                 value = datetime.datetime.fromtimestamp(dif)
-                                return await message.channel.send(f"Falta {value.strftime('%H:%M:%S')} para que puedas dar otro punto a {str(member.name)}")
+                                await message.channel.send(f"Falta {value.strftime('%H:%M:%S')} para que puedas dar otro punto a {str(member.name)}")
                             else:
                                 collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1} }, upsert=True)
-                                client.close()
-                                return await message.channel.send(f"{str(member.name)} tiene {user['points'] + 1} puntos ahora!")
+                                await message.channel.send(f"{str(member.name)} tiene {user['points'] + 1} puntos ahora!")
+                                currentUser['points_given'][str(member.id)] = time.time()
+                                collection.update_one({"_id": str(message.author.id)}, { "$set": { 'points_given': currentUser['points_given'] } }, upsert=True)
                         else:
                             collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1} }, upsert=True)
                             await message.channel.send(f"{str(member.name)} tiene {user['points'] + 1} puntos ahora!")
                             currentUser['points_given'][str(member.id)] = time.time()
                             collection.update_one({"_id": str(message.author.id)}, { "$set": { 'points_given': currentUser['points_given'] } }, upsert=True)
-                            client.close()
-                            return
                     else:
                         collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1}, "$set": { 'points_given': {} } }, upsert=True)
                         await message.channel.send(f"{str(member.name)} tiene su primer punto :d!")
                         currentUser['points_given'][str(member.id)] = time.time()
                         collection.update_one({"_id": str(message.author.id)}, { "$set": { 'points_given': currentUser['points_given'] } }, upsert=True)
-                        client.close()
-                        return
                 else:
                     await message.channel.send("el wn barsa")
             client.close()
