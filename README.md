@@ -64,3 +64,5 @@ https://github.com/xrisk/heroku-opus.git
 
 Agunos canales del script están hardcodeados y pensandos solo para el canal en el que corre el bot actualmente.
 Contribuciones son bienvenidas, si tienes dudas o quieres sumarte al proyecto, me puedes encontrar en discord bajo "Báfian#7700"
+
+English version coming soon.
