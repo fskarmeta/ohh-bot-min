@@ -20,7 +20,7 @@ Esta escrito sobre la librería discord.py, corre en un servidor de Heroku y usa
 Recomiendo tener un server de testeo/dev en discord con estos campos dedicado especialmente a ello. Y a su vez, tener los campos para producción como variables ambientales en el servidor.
 
 
-3) Empezar shell el ambiente virtual:
+3) Empezar shell del ambiente virtual:
 `pipenv shell`
 
 4) Instalar librerías que se usan en el projecto del Pipfile:
@@ -67,3 +67,44 @@ Agunos canales del script están hardcodeados y pensandos solo para el canal en 
 Contribuciones son bienvenidas, si tienes dudas o quieres sumarte al proyecto, me puedes encontrar en discord bajo "Báfian#7700"
 
 English version coming soon.
+
+
+# Commandos
+
+## Música
+#join | entra al canal de voz
+#leave | sale del canal de voz
+#play url_de_youtube | toca canción de youtube
+#stop para canción
+#pause detiene canción
+#resume continúa reproducción
+
+## Scripts
+
+#define una_palabra | trae una defición de la palabra desde la rae con un web scraping  
+
+#tiempo | consume una api para crear un dibujo del clima con un .txt más los datos.  
+
+#ranking | entrega el ranking de puntos actual de los usuarios  
+
+#lol baf | Invita a amigos más cercanos de Báfian -yo- a jugar.  
+
+#lol elo | Invita a todos los usuarios pertenecientes de una categoría a jugar.  
+
+#premios | Indica información sobre premios por cantidad de puntos.  
+
+#borrar X | Donde X es un numero: Borrará los últimos X mensajes del bot en el chat.  
+
+#borrar X Y | Donde X es un numero y Y el nombre de un usuario: Borrar los últimos X mensajes de usuario Y en el chat.
+
+
+
+
+## Custom
+
+El bot tiene scripts personalizador pasa saludar a usuarios específicos de distinta maneras.  
+
+Saluda a las personas respondiendo a distintos tipos de saludos.  
+
+Mencionar a cualquier usuario, o varios a la vez, y agregando "++" al final de mensaje de le dará un punto a el/los usuario/s. No sé puede dar más de un punto a un mismo usuario en un tiempo limite de 45 minutos.
+Ejemplo: @Báfian ++
