@@ -9,7 +9,8 @@ Esta escrito sobre la librería discord.py, corre en un servidor de Heroku y usa
 1) Crear carpeta en tu pc, entrar a ese path y clonar projecto:
 `$ git clone <url> `
 
-2) Crear documento local ".env" e ingresar los siguientes campos:
+2) Crear documento local ".env" e ingresar los siguientes campos:  
+
 `TOKEN = '' //Token de tu bot en discord`    
 `DB_USER = '' //Nombre de usuario MongoDB`  
 `DB_PASS = '' //Clave usuario MongoDB`  
