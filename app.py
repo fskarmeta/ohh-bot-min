@@ -45,7 +45,7 @@ async def on_voice_state_update(member, before, after):
     # if str(member) == "Báfian#7700" and str(after.channel.id) == "785246386408128605":
     #     await channel.send("wena llego el baf")
     if str(member) == "Chukao#9321" and str(after.channel.id) == "785246386408128605":
-        mati = ("yupiii llegó el mati", "llegó el breaking bad", ":pill: llegó toda la química al canal :D", "que onda mati, sea of thieves, rocket, o lolcito?", "cómo estuvo el lab bro?", "wena rucio ql", "saquense uno que llegó el matiiiiii", "hi mister matias")
+        mati = ("yupiiii llegó el mati", "llegó el breaking bad", ":pill: llegó toda la química al canal :D", "que onda mati, sea of thieves, rocket, o lolcito?", "cómo estuvo el lab bro?", "wena rucio ql", "saquense uno que llegó el matiiiiii", "hi mister matias")
         mensaje = random.choice(mati)
         await channel.send(mensaje)
 
