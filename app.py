@@ -7,7 +7,7 @@ import urllib.parse
 import youtube_dl
 import os
 import time
-from helpers import get_or_create_user
+from helpers import get_or_create_user, update_timestamp
 import datetime
 import pymongo
 from pymongo import MongoClient
@@ -66,30 +66,25 @@ async def on_message(message):
                     if user:
                         last_time = currentUser['points_given'].get(str(member.id), 0)
                         if last_time:
-                            print("Hubo ultima vez")
                             current_time = time.time()
                             dif = current_time - last_time
                             if dif < waiting_time:
-                                print("no ha pasado suficiente tiempo")
                                 value = datetime.datetime.fromtimestamp(dif)
-                                await message.channel.send(f"Falta {value.strftime('%H:%M:%S')} para que puedas dar otro punto a {str(member.name)}")
+                                await message.channel.send(f"Han pasado {value.strftime('%M:%S')} minutos desde que diste el último like a {str(member.name)}, espera 45 minutos amigue.")
                             else:
                                 collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1} }, upsert=True)
                                 await message.channel.send(f"{str(member.name)} tiene {user['points'] + 1} puntos ahora!")
-                                currentUser['points_given'][str(member.id)] = time.time()
-                                collection.update_one({"_id": str(message.author.id)}, { "$set": { 'points_given': currentUser['points_given'] } }, upsert=True)
+                                update_timestamp(currentUser,str(message.author.id),str(member.id), collection)
                         else:
                             collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1} }, upsert=True)
                             await message.channel.send(f"{str(member.name)} tiene {user['points'] + 1} puntos ahora!")
-                            currentUser['points_given'][str(member.id)] = time.time()
-                            collection.update_one({"_id": str(message.author.id)}, { "$set": { 'points_given': currentUser['points_given'] } }, upsert=True)
+                            update_timestamp(currentUser,str(message.author.id),str(member.id), collection)
                     else:
                         collection.update_one({"_id": str(member.id)}, {"$inc": { "points" : 1}, "$set": { 'points_given': {} } }, upsert=True)
                         await message.channel.send(f"{str(member.name)} tiene su primer punto :d!")
-                        currentUser['points_given'][str(member.id)] = time.time()
-                        collection.update_one({"_id": str(message.author.id)}, { "$set": { 'points_given': currentUser['points_given'] } }, upsert=True)
+                        update_timestamp(currentUser,str(message.author.id),str(member.id), collection)
                 else:
-                    await message.channel.send("el wn barsa")
+                    await message.channel.send("el loco barsa")
             client.close()
 
             
@@ -138,7 +133,7 @@ async def on_message(message):
     ## Huevear al mati
     if str(message.author) == 'Chukao#9321':
         if message.content.startswith('!p'):
-            await message.channel.send('denuevo anda poniendo música este perkin ql del mati')
+            await message.channel.send('denuevo anda poniendo música este perkin')
 
         emoji = '\U0001f44e'
         await message.add_reaction(emoji)
@@ -189,7 +184,7 @@ async def define(ctx, arg):
         r'name="description" content="(.*?)\">', rawHTML)[0]
 
     if description.split()[0] == "Versión":
-        await ctx.send("Esa palabra no exíste aprende a escribir aweonaoql")
+        await ctx.send("Esa palabra no exíste, aprende a escribir.")
     else:
         await ctx.send(description)
 
@@ -266,7 +261,7 @@ async def mati(ctx, arg):
 
 @bot.command()
 async def premios(ctx):
-        await ctx.send(f'Premio n°1: Al alcanzar 100 puntos te compraré una manito de wii o un six pack de kunstmann, tu elijes. :D Esto es 100% real! ')
+        await ctx.send(f'Premio n°1: Al alcanzar 100 puntos te dare una merecida recompensa, top secret. Esto es 100% real! ')
 
 @bot.command()
 async def ranking(ctx):
