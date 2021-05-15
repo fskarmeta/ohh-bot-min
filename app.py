@@ -2,12 +2,13 @@ import discord
 from discord.ext import commands
 import requests
 import re
+import json
 import random
 import urllib.parse
 import youtube_dl
 import os
 import time
-from helpers import get_or_create_user, update_timestamp
+from helpers import get_or_create_user, update_timestamp, decir_puntaje, compute_score, compute_winner
 import datetime
 import pymongo
 from pymongo import MongoClient
@@ -87,18 +88,7 @@ async def on_message(message):
                     await message.channel.send("el loco barsa")
             client.close()
 
-            
 
-    if message.content == "puntos":
-            client = MongoClient(db_connection_string, ssl=True)
-            db = client['discord']
-            collection = db['users']
-            user = collection.find_one({"_id": str(message.author.id)})
-            if user:
-                await message.channel.send(f"{str(message.author.name)} tiene {user['points']} puntos!")
-            else:
-                await message.channel.send(f"No haber registro para {message.author.name}")
-            client.close()
 
     
     ## Si mensaje es el mismo bot
@@ -163,6 +153,40 @@ async def on_message(message):
     baf = bot.get_user(215721755380154369)
     if message.guild is None and not message.author.bot:
         await baf.send(str(message.author) + " me dijo: " + message.content)
+
+
+    if message.content == "piedra" or message.content == "tijera" or message.content == "papel":
+        id = str(message.author.id)
+        player_choice = message.content
+        opts = ['piedra', 'papel', 'tijera']
+        try:
+            game_finished = False
+            with open(f'game_{id}.txt') as json_file:
+                game = json.load(json_file)
+                bot_pick = random.choice(opts)
+                await message.channel.send(f"El bot seleccionó {bot_pick}")
+                updatedGame = compute_score(bot_pick, player_choice, game)
+                await message.channel.send(decir_puntaje(updatedGame))
+                winner = compute_winner(updatedGame)
+                if (winner):
+                    if (winner == "Bot"):
+                        await message.channel.send("Gané, perdiste. :rofl:")
+                    else:
+                        client = MongoClient(db_connection_string, ssl=True)
+                        db = client['discord']
+                        collection = db['users']
+                        currentUser = get_or_create_user(collection, str(message.author.id))
+                        collection.update_one({"_id": id}, {"$inc": { "points" : 1} }, upsert=True)
+                        client.close()
+                        await message.channel.send("Has ganado!!! Te he dado un punto :D :star:")
+                    game_finished = True
+                else:
+                    with open(f'game_{id}.txt', 'w') as outfile:
+                        json.dump(updatedGame, outfile)
+            if game_finished:
+                os.remove(f'game_{id}.txt')
+        except:
+            await message.channel.send("No tienes un cachipun andando, empieza uno con #cachipun")
 
 
     await bot.process_commands(message)
@@ -368,6 +392,33 @@ async def lucho(ctx):
     voice.play(discord.FFmpegPCMAudio("lucho.mp3"))
 
 
+@bot.command()
+async def cachipun(ctx):
+    id = str(ctx.message.author.id)
+    try:
+        with open(f'game_{id}.txt') as json_file:
+            await ctx.send("Ya tienes un juego andando! Dí piedra, papel o tijera")
+    except:
+        await ctx.send("Empezando un nuevo cachipun! Escribe papel, piedra o tijera")
+        game = {}
+        game['player'] = 0
+        game['bot'] = 0
+        print(decir_puntaje(game))
+        with open(f'game_{id}.txt', 'w') as outfile:
+            json.dump(game, outfile)
 
+
+@bot.command()
+async def puntos(ctx):
+    id = str(ctx.message.author.id)
+    client = MongoClient(db_connection_string, ssl=True)
+    db = client['discord']
+    collection = db['users']
+    user = collection.find_one({"_id": id})
+    if user:
+        await ctx.send(f"{str(ctx.message.author.name)} tiene {user['points']} puntos!")
+    else:
+        await ctx.send(f"No haber registro para {ctx.message.author.name}")
+    client.close()
 ## Correr server con nuestro token
 bot.run(environ.get('TOKEN'))

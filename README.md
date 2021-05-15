@@ -95,7 +95,11 @@ English version coming soon.
 
 #borrar X | Donde X es un numero: Borrará los últimos X mensajes del bot en el chat.  
 
-#borrar X Y | Donde X es un numero y Y el nombre de un usuario: Borrar los últimos X mensajes de usuario Y en el chat.
+#borrar X Y | Donde X es un numero y Y el nombre de un usuario: Borrar los últimos X mensajes de usuario Y en el chat.  
+
+#cachipun | Empieza un juego de cachipun contra el bot  
+
+#puntos | te da la cantidad de puntos que tienes  
 
 
 
