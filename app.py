@@ -14,7 +14,7 @@ import pymongo
 from pymongo import MongoClient
 from os import environ
 
-intents = discord.Intents.default()  # Allow the use of custom intents
+intents = discord.Intents.default()
 intents.members = True
 
 bot = commands.Bot(command_prefix='#', case_insensitive=True, intents=intents)
@@ -53,13 +53,15 @@ async def on_voice_state_update(member, before, after):
 ## Lectura de mensajes
 @bot.event
 async def on_message(message):
+
+    # dar puntos
     mentioned = message.mentions
     if mentioned:
         if ("++" in message.content):
             waiting_time = 2700
             client = MongoClient(db_connection_string, ssl=True)
             db = client['discord']
-            collection = db['users']
+            collection = db['users-test123']
             currentUser = get_or_create_user(collection, str(message.author.id))
             for member in mentioned:
                 if str(message.author.id) != str(member.id):
@@ -165,7 +167,7 @@ async def on_message(message):
             with open(f'game_{id}.txt') as json_file:
                 game = json.load(json_file)
                 bot_pick = random.choice(opts)
-                await message.channel.send(f"El bot seleccionó {bot_pick}")
+                await message.channel.send(f"El bot seleccionó {bot_pick}, {username} seleccionó {player_choice}")
                 updatedGame = compute_score(bot_pick, player_choice, game)
                 await message.channel.send(decir_puntaje(updatedGame))
                 winner = compute_winner(updatedGame)
@@ -277,8 +279,6 @@ async def lol(ctx, arg):
         for person in target:
             await person.send('los cabres en el lolete te están invitando a jugar :d')
 
-    # if str(arg) == "test":
-    #     await baf.send('👀')
 
 @bot.command()
 async def mati(ctx, arg):
@@ -303,11 +303,6 @@ async def ranking(ctx):
             i+=1
         client.close()
         
-
-# @bot.command()
-# async def printmember(ctx, arg):
-#         user = bot.get_user(int(arg))
-#         print(user)
 
 #Para que el bot pueda entrar a un canal de voz usando el comando #join
 @bot.command(pass_context = True)
@@ -378,20 +373,12 @@ async def resume(ctx):
     if voice.is_paused():
         voice.resume()
     else:
-        await ctx.send('EL audio no esta en pausa.')
+        await ctx.send('E audio no esta en pausa.')
 
 @bot.command()
 async def stop(ctx):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
     voice.stop()
-
-@bot.command()
-async def lucho(ctx):
-    engine = pyttsx3.init()
-    engine.save_to_file('Yo yo yo mister wait' , 'lucho.mp3')
-    # engine.runAndWait()
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    voice.play(discord.FFmpegPCMAudio("lucho.mp3"))
 
 
 @bot.command()

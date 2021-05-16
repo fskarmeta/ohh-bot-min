@@ -1,12 +1,12 @@
 import time
+from pymongo import ReturnDocument
 
 def get_or_create_user(collection, id):
     currentUser = collection.find_one({"_id": id})
     if currentUser:
         return currentUser
     else: 
-        collection.update_one({"_id": id}, {"$set": { "points": 0, "points_given": {} } }, upsert=True)
-        newUser = collection.find_one({"_id": id})
+        newUser = collection.find_one_and_update({"_id": id}, {"$set": { "points": 0, "points_given": {} } }, upsert=True, return_document=ReturnDocument.AFTER)
         return newUser
 
 def update_timestamp(currentUser, currentUserId, targetMemberId, collection):
