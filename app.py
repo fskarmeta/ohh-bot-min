@@ -61,7 +61,7 @@ async def on_message(message):
             waiting_time = 2700
             client = MongoClient(db_connection_string, ssl=True)
             db = client['discord']
-            collection = db['users-test123']
+            collection = db['users']
             currentUser = get_or_create_user(collection, str(message.author.id))
             for member in mentioned:
                 if str(message.author.id) != str(member.id):
