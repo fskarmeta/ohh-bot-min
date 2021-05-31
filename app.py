@@ -265,6 +265,7 @@ async def lol(ctx, arg):
     urre = bot.get_user(308080160068861953)
     blame = bot.get_user(317878217086074882)
     hazer = bot.get_user(438518298129334284)
+    newton = bot.get_user(438518298129334284)
 
     if str(arg) == "baf":
         await baf.send('el baf te esta invitando a jugar lol :d')
@@ -272,6 +273,7 @@ async def lol(ctx, arg):
         await urre.send('el baf te esta invitando a jugar lol :d')
         await blame.send('el baf te esta invitando a jugar lol :d')
         await hazer.send('el baf te esta invitando a jugar lol :d')
+        await newton.send('el baf te esta invitando a jugar lol :d')
     
     if str(arg) == "elo":
         role = discord.utils.get(ctx.message.guild.roles, name="EloBooster")
