@@ -265,7 +265,7 @@ async def lol(ctx, arg):
     urre = bot.get_user(308080160068861953)
     blame = bot.get_user(317878217086074882)
     hazer = bot.get_user(438518298129334284)
-    newton = bot.get_user(438518298129334284)
+    newton = bot.get_user(234510282079207424)
 
     if str(arg) == "baf":
         await baf.send('el baf te esta invitando a jugar lol :d')
