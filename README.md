@@ -101,7 +101,7 @@ English version coming soon.
 
 #puntos | te da la cantidad de puntos que tienes  
 
-#precio <criptomeda> | Trae el precio en dolares de alguna criptomeda. Ej: btc, eth, ada  
+#precio btc | Trae el precio en dolares de alguna criptomeda. Ej: btc, eth, ada  
 
 
 
