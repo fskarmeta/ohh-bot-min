@@ -217,6 +217,17 @@ async def define(ctx, arg):
         await ctx.send(description)
 
 @bot.command()
+async def precio(ctx, arg):
+    resp = requests.get(f'https://api.kraken.com/0/public/Ticker?pair={arg.upper()}USD')
+    data = resp.json()
+    if len(data['error']) > 0:
+        await ctx.send("No encontré esa criptomoneda bro.")
+    else:
+        lista = list(data["result"].keys())[0]
+        price = data["result"][lista]['a'][0]
+        await ctx.send(f"${float(price)}")
+
+@bot.command()
 async def borrar(ctx, limit=5, member: discord.Member=None):
     await ctx.message.delete()
     msg = []
