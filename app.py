@@ -253,9 +253,25 @@ async def convertir(ctx, *arg):
             await ctx.send(str(round((float(list(data.values())[0]) * amount), 2)) + str(coins[1].upper()))
         else:
             await ctx.send("Una de esas monedas no existe my bro")
-    except ValueError:
+    except:
         await ctx.send('Formato incorrecto bra. Ejemplo: #convertir 120000 CLP2USD. Probablemente el monto que pusiste conllevó al error.')
 
+@bot.command()
+async def covid(ctx, arg):
+    url = "https://covid-19-data.p.rapidapi.com/country"
+    querystring = {"name": arg}
+
+    headers = {
+        'x-rapidapi-key': environ.get('X_RAPI_KEY'),
+        'x-rapidapi-host': "covid-19-data.p.rapidapi.com"
+        }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    try:
+        data = response.json()[0]
+        await ctx.send(f"Confirmados: {data['confirmed']}  Recuperados: {data['recovered']}  Críticos: {data['critical']}  Muertes: {data['deaths']}")
+    except:
+        await ctx.send('Formato incorrecto o país no existe bro. Intenta #covid chile')
 
 @bot.command()
 async def borrar(ctx, limit=5, member: discord.Member=None):
