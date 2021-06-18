@@ -103,7 +103,9 @@ English version coming soon.
 
 #precio btc | Trae el precio en dolares de alguna criptomeda. Ej: btc, eth, ada  
 
+#cambio CLP2USD | Pedir el tipo de cambio, puede ser cualquier moneda. Ej: EUR2USD  
 
+#convertir 120000 CLP2USD | Covertir una cantidad de dinero a otra moneda. 
 
 
 ## Custom

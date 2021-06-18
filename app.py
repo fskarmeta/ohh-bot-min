@@ -228,6 +228,36 @@ async def precio(ctx, arg):
         await ctx.send(f"${float(price)}")
 
 @bot.command()
+async def cambio(ctx, arg):
+    coins = arg.split('2')
+    if len(coins) != 2:
+        await ctx.send('Formato incorrecto bra. Ejemplo correcto: #cambio USD2CLP')
+    else:
+        resp = requests.get(f"https://free.currconv.com/api/v7/convert?q={coins[0].upper()}_{coins[1].upper()}&compact=ultra&apiKey={environ.get('CCA_TOKEN')}")
+        data = resp.json()
+        if data:
+            await ctx.send(str(list(data.values())[0]))
+        else:
+            await ctx.send("Una de esas monedas no existe my bro")
+
+@bot.command()
+async def convertir(ctx, *arg):
+    if len(arg) != 2:
+        await ctx.send('Formato incorrecto bra. Ejemplo: #convertir 120000 CLP2USD')
+    coins = arg[1].split('2')
+    try:
+        amount = float(arg[0])
+        resp = requests.get(f"https://free.currconv.com/api/v7/convert?q={coins[0].upper()}_{coins[1].upper()}&compact=ultra&apiKey={environ.get('CCA_TOKEN')}")
+        data = resp.json()
+        if data:
+            await ctx.send(str(round((float(list(data.values())[0]) * amount), 2)) + str(coins[1].upper()))
+        else:
+            await ctx.send("Una de esas monedas no existe my bro")
+    except ValueError:
+        await ctx.send('Formato incorrecto bra. Ejemplo: #convertir 120000 CLP2USD. Probablemente el monto que pusiste conllevó al error.')
+
+
+@bot.command()
 async def borrar(ctx, limit=5, member: discord.Member=None):
     await ctx.message.delete()
     msg = []
