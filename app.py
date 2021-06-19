@@ -11,6 +11,7 @@ import time
 from helpers import get_or_create_user, update_timestamp, decir_puntaje, compute_score, compute_winner
 import datetime
 import pymongo
+import pycountry
 from pymongo import MongoClient
 from os import environ
 
@@ -258,20 +259,45 @@ async def convertir(ctx, *arg):
 
 @bot.command()
 async def covid(ctx, arg):
-    url = "https://covid-19-data.p.rapidapi.com/country"
-    querystring = {"name": arg}
-
-    headers = {
-        'x-rapidapi-key': environ.get('X_RAPI_KEY'),
-        'x-rapidapi-host': "covid-19-data.p.rapidapi.com"
-        }
-
-    response = requests.request("GET", url, headers=headers, params=querystring)
+    country = arg.capitalize()
     try:
+        iso = pycountry.countries.get(name=country).alpha_3
+        url = f"https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/country-report-iso-based/{country}/{iso}"
+        headers = {
+            'x-rapidapi-key': environ.get('X_RAPI_KEY'),
+            'x-rapidapi-host': "vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com"
+            }
+        response = requests.request("GET", url, headers=headers)
         data = response.json()[0]
-        await ctx.send(f"Confirmados: {data['confirmed']}  Recuperados: {data['recovered']}  Críticos: {data['critical']}  Muertes: {data['deaths']}")
+        await ctx.send(f"""
+        ```
+        Pais: {data['Country']}
+        Población: {data['Population']}
+        Positividad: {data['Infection_Risk']}%
+        Tasa de Fatalidad: {data['Case_Fatality_Rate']}%
+        Porcentaje de Testeo: {data['Case_Fatality_Rate']}%
+        Porcentaje Personas Recuperadas: {data['Recovery_Proporation']}%
+        Casos Totales: {data['TotalCases']}
+        Casos Nuevos: {data['NewCases']}
+        Muertes Totales: {data['TotalDeaths']}
+        Muertes Nuevas: {data['NewDeaths']}
+        Total de Recuperados: {data['TotalRecovered']}
+        Nuevos Recuperados: {data['NewRecovered']}
+        Casos Activos: {data['ActiveCases']}
+        Cantidad de Testeos: {data['TotalTests']}
+        Un Caso Cada X Personas: {data['one_Caseevery_X_ppl']}
+        Una Muerte Cada X Personas: {data['one_Deathevery_X_ppl']}
+        Una Test Cada X Personas: {data['one_Testevery_X_ppl']}
+        Muertes por Millon de Personas: {data['Deaths_1M_pop']}
+        Personas Seriamente Críticas: {data['Serious_Critical']}
+        Test por Millon de Personas: {data['Tests_1M_Pop']}
+        Total de Casos por Millon de Personas: {data['TotCases_1M_Pop']}
+        ```
+        """)
     except:
-        await ctx.send('Formato incorrecto o país no existe bro. Intenta #covid chile')
+        await ctx.send("Pais no existe, formato incorrecto bra o error de servidor. Prueba #covid chile")
+
+
 
 @bot.command()
 async def borrar(ctx, limit=5, member: discord.Member=None):

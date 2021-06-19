@@ -10,6 +10,7 @@ scripts = "*"
 youtube-dl = "*"
 pymongo = {extras = ["tls"], version = "*"}
 dnspython = "*"
+pycountry = "*"
 
 [dev-packages]
 

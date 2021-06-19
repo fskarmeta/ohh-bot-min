@@ -107,6 +107,8 @@ English version coming soon.
 
 #convertir 120000 CLP2USD | Covertir una cantidad de dinero a otra moneda. 
 
+#covid pais | Data de covid, donde pais es el nombre de cualquier país en ingles.  
+
 
 ## Custom
 
