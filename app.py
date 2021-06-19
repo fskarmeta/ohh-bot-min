@@ -292,6 +292,7 @@ async def covid(ctx, arg):
         Personas Seriamente Críticas: {data['Serious_Critical']}
         Test por Millon de Personas: {data['Tests_1M_Pop']}
         Total de Casos por Millon de Personas: {data['TotCases_1M_Pop']}
+        Datos recopilados desde: https://vaccovid.live/
         ```
         """)
     except:
