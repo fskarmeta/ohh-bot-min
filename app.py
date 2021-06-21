@@ -275,7 +275,7 @@ async def covid(ctx, arg):
         Población: {data['Population']}
         Positividad: {data['Infection_Risk']}%
         Tasa de Fatalidad: {data['Case_Fatality_Rate']}%
-        Porcentaje de Testeo: {data['Case_Fatality_Rate']}%
+        Porcentaje de Testeo: {data['Test_Percentage']}%
         Porcentaje Personas Recuperadas: {data['Recovery_Proporation']}%
         Casos Totales: {data['TotalCases']}
         Casos Nuevos: {data['NewCases']}
