@@ -261,7 +261,11 @@ async def convertir(ctx, *arg):
 async def covid(ctx, arg):
     country = arg.capitalize()
     try:
-        iso = pycountry.countries.get(name=country).alpha_3
+        iso = ''
+        try:
+            iso = pycountry.countries.get(common_name=country).alpha_3
+        except:
+            iso = pycountry.countries.get(name=country).alpha_3
         url = f"https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/country-report-iso-based/{country}/{iso}"
         headers = {
             'x-rapidapi-key': environ.get('X_RAPI_KEY'),
